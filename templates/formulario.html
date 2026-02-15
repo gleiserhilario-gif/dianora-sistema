@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema DIANORA</title>
+
+    <style>
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .producto {
+            text-align: center;
+        }
+
+        .producto img {
+            width: 100%;
+            max-width: 160px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+
+        .producto img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+
+</head>
+<body>
+
+<h1>Registro de Ventas - DIANORA</h1>
+
+<h2>Selecciona la prenda</h2>
+
+<div class="grid-productos">
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/blusa_cuello_asimetrico.jpg') }}"
+        onclick="seleccionarPrenda('P-B-02')">
+        <p>P-B-02</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/blusa_floreal_asimetrico.jpg') }}"
+        onclick="seleccionarPrenda('P-B-01')">
+        <p>P-B-01</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/camiseta_hombros_descubiertos.jpg') }}"
+        onclick="seleccionarPrenda('P-B-03')">
+        <p>P-B-03</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_blanco_corcet.jpg') }}"
+        onclick="seleccionarPrenda('P-T-10')">
+        <p>P-T-10</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_celeste_corcet.jpg') }}"
+        onclick="seleccionarPrenda('P-T-09')">
+        <p>P-T-09</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_corto_conestanpado.jpg') }}"
+        onclick="seleccionarPrenda('P-T-02')">
+        <p>P-T-02</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_corto_rosa.jpg') }}"
+        onclick="seleccionarPrenda('P-T-01')">
+        <p>P-T-01</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_crema.jpg') }}"
+        onclick="seleccionarPrenda('P-T-03')">
+        <p>P-T-03</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_crema_corcet.jpg') }}"
+        onclick="seleccionarPrenda('P-T-07')">
+        <p>P-T-07</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_elegant_azul.jpg') }}"
+        onclick="seleccionarPrenda('P-T-06')">
+        <p>P-T-06</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_elegant_marron.jpg') }}"
+        onclick="seleccionarPrenda('P-T-05')">
+        <p>P-T-05</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_espalda_descubierta.jpg') }}"
+        onclick="seleccionarPrenda('P-B-03')">
+        <p>P-B-03</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_negro.jpg') }}"
+        onclick="seleccionarPrenda('P-T-04')">
+        <p>P-T-04</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/top_verdeclaro.jpg') }}"
+        onclick="seleccionarPrenda('P-T-08')">
+        <p>P-T-08</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/vestido.jpg') }}"
+        onclick="seleccionarPrenda('P-V-02')">
+        <p>P-V-02</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/vestido_rayas_marron.jpg') }}"
+        onclick="seleccionarPrenda('P-V-01')">
+        <p>P-V-01</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/bolso_hombro_blanco.jpg') }}"
+        onclick="seleccionarPrenda('A-B-04')">
+        <p>A-B-04</p>
+    </div>
+    
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/bolso_hombro_corazonmaron.jpg') }}"
+        onclick="seleccionarPrenda('A-B-05')">
+        <p>A-B-05</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/bolso_hombro_floreado.jpg') }}"
+        onclick="seleccionarPrenda('A-B-03')">
+        <p>A-B-03</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/bolso_hombro_gris.jpg') }}"
+        onclick="seleccionarPrenda('A-B-02')">
+        <p>A-B-02</p>
+    </div>
+
+    <div class="producto">
+        <img src="{{ url_for('static', filename='img/bolso_hombro_rosa.jpg') }}"
+        onclick="seleccionarPrenda('A-B-01')">
+        <p>A-B-01</p>
+    </div>
+    
+
+</div>
+
+<hr>
+
+<form method="POST">
+
+    <label>Fecha:</label>
+    <input type="date" name="fecha"><br><br>
+
+    <label>Prenda:</label>
+    <input type="text" name="prenda" id="prenda" readonly><br><br>
+
+    <label>Cantidad:</label>
+    <input type="number" name="cantidad" id="cantidad" oninput="calcularTotal()">
+
+    <label>Precio:</label>
+    <input type="number" step="0.01" name="precio" id="precio" oninput="calcularTotal()">
+
+    <label>Movilidad:</label>
+   <input type="number" step="0.01" name="movilidad" id="movilidad" oninput="calcularTotal()">
+
+    <label>Total:</label>
+    <input type="number" id="total" readonly><br><br>
+
+    <label>Dirección:</label>
+    <input type="text" name="direccion"><br><br>
+
+    <label>Estado:</label>
+    <select name="estado">
+        <option>Pendiente</option>
+        <option>Entregado</option>
+    </select><br><br>
+
+    <button type="submit">Guardar Venta</button>
+
+</form>
+
+<script>
+function seleccionarPrenda(codigo) {
+    document.getElementById("prenda").value = codigo;
+}
+function calcularTotal() {
+    let precio = parseFloat(document.getElementById("precio").value) || 0;
+    let cantidad = parseFloat(document.getElementById("cantidad").value) || 0;
+    let movilidad = parseFloat(document.getElementById("movilidad").value) || 0;
+
+    let total = (precio * cantidad) + movilidad;
+
+    document.getElementById("total").value = total.toFixed(2);
+}
+</script>
+
+</body>
+</html>
