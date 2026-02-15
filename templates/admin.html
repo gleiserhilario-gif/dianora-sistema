@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Panel DIANORA</title>
+</head>
+<body>
+
+<h1>Ventas Registradas</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Prenda</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Movilidad</th>
+        <th>Dirección</th>
+        <th>Estado</th>
+    </tr>
+
+    {% for venta in ventas %}
+    <tr>
+        <td>{{ venta[0] }}</td>
+        <td>{{ venta[1] }}</td>
+        <td>{{ venta[2] }}</td>
+        <td>{{ venta[3] }}</td>
+        <td>{{ venta[4] }}</td>
+        <td>{{ venta[5] }}</td>
+        <td>{{ venta[6] }}</td>
+        <td>{{ venta[7] }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
