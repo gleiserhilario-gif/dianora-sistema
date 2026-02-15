@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sqlite3
+import os
 
 app = Flask(__name__)
 
@@ -26,11 +27,31 @@ def crear_base():
 
 crear_base()
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def inicio():
+
+    if request.method == "POST":
+        fecha = request.form["fecha"]
+        prenda = request.form["prenda"]
+        cantidad = request.form["cantidad"]
+        precio = request.form["precio"]
+        movilidad = request.form["movilidad"]
+        direccion = request.form["direccion"]
+        estado = request.form["estado"]
+
+        conexion = sqlite3.connect("ventas.db")
+        cursor = conexion.cursor()
+
+        cursor.execute("""
+            INSERT INTO ventas (fecha, prenda, cantidad, precio, movilidad, direccion, estado)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (fecha, prenda, cantidad, precio, movilidad, direccion, estado))
+
+        conexion.commit()
+        conexion.close()
+
     return render_template("formulario.html")
 
-import os
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
