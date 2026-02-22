@@ -57,20 +57,9 @@ def inicio():
 
 @app.route("/admin")
 def admin():
-    conexion = sqlite3.connect("ventas.db")
-    cursor = conexion.cursor()
+    return "ADMIN FUNCIONA"
 
-    cursor.execute("SELECT * FROM ventas")
-    ventas = cursor.fetchall()
 
-    conexion.close()
-
-    return render_template("admin.html", ventas=ventas)
-
-@app.route("/hola")
-def hola():
-    return "HOLA FUNCIONA"
-    
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
