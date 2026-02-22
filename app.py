@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import sqlite3
 import os
 
@@ -29,8 +29,8 @@ crear_base()
 
 @app.route("/", methods=["GET", "POST"])
 def inicio():
-
     if request.method == "POST":
+
         fecha = request.form["fecha"]
         prenda = request.form["prenda"]
         cantidad = request.form["cantidad"]
@@ -50,9 +50,27 @@ def inicio():
         conexion.commit()
         conexion.close()
 
+        return redirect("/")  # evita error de método
+
     return render_template("formulario.html")
 
 
+@app.route("/admin")
+def admin():
+    conexion = sqlite3.connect("ventas.db")
+    cursor = conexion.cursor()
+
+    cursor.execute("SELECT * FROM ventas")
+    ventas = cursor.fetchall()
+
+    conexion.close()
+
+    return render_template("admin.html", ventas=ventas)
+
+@app.route("/hola")
+def hola():
+    return "HOLA FUNCIONA"
+    
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
