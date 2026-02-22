@@ -4,10 +4,16 @@ import os
 
 app = Flask(__name__)
 
-# Crear base de datos
+# 🔹 Función para conectar a la base
+def get_db_connection():
+    conn = sqlite3.connect("ventas.db")
+    conn.row_factory = sqlite3.Row
+    return conn
+
+# 🔹 Crear base de datos y tabla si no existen
 def crear_base():
-    conexion = sqlite3.connect("ventas.db")
-    cursor = conexion.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor()
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS ventas (
@@ -22,11 +28,10 @@ def crear_base():
         )
     """)
 
-    conexion.commit()
-    conexion.close()
+    conn.commit()
+    conn.close()
 
-crear_base()
-
+# 🔹 Ruta principal (formulario)
 @app.route("/", methods=["GET", "POST"])
 def inicio():
     if request.method == "POST":
@@ -39,27 +44,30 @@ def inicio():
         direccion = request.form["direccion"]
         estado = request.form["estado"]
 
-        conexion = sqlite3.connect("ventas.db")
-        cursor = conexion.cursor()
-
-        cursor.execute("""
+        conn = get_db_connection()
+        conn.execute("""
             INSERT INTO ventas (fecha, prenda, cantidad, precio, movilidad, direccion, estado)
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (fecha, prenda, cantidad, precio, movilidad, direccion, estado))
 
-        conexion.commit()
-        conexion.close()
+        conn.commit()
+        conn.close()
 
-        return redirect("/")  # evita error de método
+        return redirect("/")
 
     return render_template("formulario.html")
 
-
+# 🔹 Ruta admin (panel para ver registros)
 @app.route("/admin")
 def admin():
-    return "ADMIN FUNCIONA"
+    conn = get_db_connection()
+    ventas = conn.execute("SELECT * FROM ventas").fetchall()
+    conn.close()
 
+    return render_template("admin.html", ventas=ventas)
 
+# 🔹 Inicializar aplicación
 if __name__ == "__main__":
+    crear_base()
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
